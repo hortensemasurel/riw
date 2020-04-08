@@ -6,35 +6,37 @@ from time import time, sleep
 from tqdm import tqdm
 import datetime
 
-cs276_url = "http://web.stanford.edu/class/cs276/pa/pa1-data.zip"
+url_cs276 = "http://web.stanford.edu/class/cs276/pa/pa1-data.zip"
 
-print("Downloading the CS276 Corpus...")
-start = time()
-attempts = 0
+### Downloading the corpus
+print("CS276 starts downloading...")
 
-while "cs276_request" not in globals():
-    cs276_request = get(cs276_url, stream=True)
-    #total_size = int(cs276_request.headers.get("content-length", 0))
+while "corpus_request" not in globals():
+    #import the corpus of documents with the url
+    corpus_request = get(url_cs276, stream=True)
+
+    #we implement a loading bar
+    bar_size = int(corpus_request.headers.get("content-length", 0))
     chunk_size = 1024
-    #t = tqdm(total=total_size, unit="iB", unit_scale=True)
+    bar = tqdm(total=bar_size, unit="iB", unit_scale=True)
+
+    #reading data
     with open("cs276.zip", "wb") as f:
-        for data in cs276_request.iter_content(chunk_size):
-            #t.update(len(data))
+        for data in corpus_request.iter_content(chunk_size):
+            bar.update(len(data))
             f.write(data)
-    #t.close()
+    bar.close()
+print("Corpus CS276 was successfully downloaded!")
 
-print("Corpus Downloaded!")
-#print(
-#    "Download duration : {}".format(str(datetime.timedelta(seconds=round(end - start))))
-#)
-#print("The corpus have been downloaded after : {} attempts".format(attempts))
-
+### Extracting the files one by one
 with ZipFile("cs276.zip", "r") as zip_file:
-    print("Extracting all the files now...")
-    print("tqdm chelou est : ",tqdm(iterable=zip_file.namelist(), total=len(zip_file.namelist())))
+    print("Reading all the files...")
     for file in zip_file.namelist():
         zip_file.extract(member=file, path="data/")
-    print("Done!")
+    print("All files were correctly extracted !")
 
-rename(r"data/pa1-data", r"data/cs276-2")
+#Removing the zip file, we won't need it anymore
 remove("cs276.zip")
+
+#Renaming the data directory
+rename(r"data/pa1-data", r"data/cs276")

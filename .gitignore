@@ -1,1 +1,3 @@
-rename git.txt .gitignore
+#cs276 data
+data/
+notebook_data/file_index.txt
