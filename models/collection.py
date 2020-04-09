@@ -110,7 +110,7 @@ class Collection:
         :param id_document: targeted document we want to analyse
         :return: tf-idf for this term in this document
         """
-        tf_idf = self.log_normalization(term, id_document)v* self.compute_idf(term)
+        tf_idf = self.log_normalization(term, id_document)* self.compute_idf(term)
         return tf_idf
 
 if __name__ == "__main__":
