@@ -47,4 +47,5 @@ class Query:
         return tf
 
     def get_vocabulary(self):
+        """ Returns the unique tokens of the query"""
         return list(self.term_frequencies.keys())

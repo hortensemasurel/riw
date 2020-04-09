@@ -13,18 +13,17 @@ class Collection:
     This class aims at representing a collection of documents
     """
 
-    def __init__(self, name: str, stopwords_list: List[str], lemmatizer, weighting_model: str = "tf-idf"):
+    def __init__(self, name: str, stopwords_list: List[str], lemmatizer):
         self.name = name
         self.documents = []
         self.inverted_index = {}
-        self.weighting_model = weighting_model
         self.stopwords = stopwords_list
         self.lemmatizer = lemmatizer
         self.path_to_corpus = path.join(getcwd(), f"data/{name}")
         self.number_of_docs = 0
 
         self.load_docs()
-        self.load_inverted_index(weighting_model)
+        self.create_inverted_index()
 
     def load_docs(self):
         """
