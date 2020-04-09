@@ -2,6 +2,7 @@ from os import path, listdir, getcwd, walk
 from pickle import load, dump
 from typing import List, Dict
 from math import log, sqrt
+from tqdm import tqdm
 
 from nltk.stem import WordNetLemmatizer
 
@@ -32,7 +33,7 @@ class Collection:
         number_document_loaded = 0
         for id_directory in range(10):
             path_directory = path.join(self.path_to_corpus, str(id_directory))
-            for textfile in listdir(path_directory):
+            for textfile in tqdm(listdir(path_directory)):
                 #create a document instance
                 document = Document(
                     id_doc=number_document_loaded,
@@ -111,6 +112,14 @@ class Collection:
         """
         tf_idf = self.log_normalization(term, id_document)* self.compute_idf(term)
         return tf_idf
+    
+    def get_documents_containing_term(self, term):
+        """ Returns list of ids of the documents which contain the target term """
+        try:
+            doc_list = list(self.inverted_index[term].keys())
+        except KeyError:
+            return []
+        return doc_list
 
 if __name__ == "__main__":
     word_net_lemmatizer = WordNetLemmatizer()
