@@ -1,7 +1,5 @@
-from os import path, getcwd, chdir
-from collections import Counter
+from os import path
 from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
 
 
 STOPWORDS = stopwords.words("english")

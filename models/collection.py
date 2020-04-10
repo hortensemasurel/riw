@@ -1,10 +1,6 @@
 from os import path, listdir, getcwd, makedirs
-from pickle import load, dump
-from typing import List, Dict
-from math import log, sqrt
-from tqdm import tqdm
-from nltk.corpus import stopwords
-
+from typing import List
+from math import log
 from nltk.stem import WordNetLemmatizer
 from pickle import load, dump
 
@@ -142,7 +138,6 @@ class Collection:
 
 if __name__ == "__main__":
     word_net_lemmatizer = WordNetLemmatizer()
-    stopwords = stopwords.words("english")
     collection = Collection(
-        name="cs276", stopwords_list=stopwords, lemmatizer=word_net_lemmatizer
+        name="cs276", stopwords_list=[], lemmatizer=word_net_lemmatizer
     )

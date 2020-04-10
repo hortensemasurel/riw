@@ -1,6 +1,3 @@
-from math import sqrt
-from time import time
-
 from nltk.stem import WordNetLemmatizer
 
 from models.collection import Collection
