@@ -50,6 +50,13 @@ projet
 |        ...
 ```
 
+#### Lancement d'une requête
+Pour lancer une requête, il faut exécuter le fichier main.py avec la commande suivante:
+```
+python main.py
+```
+
+
 ## Description technique
 
 #### Modèles
