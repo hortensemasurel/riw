@@ -1,3 +1,6 @@
 #cs276 data
 data/
 notebook_data/file_index.txt
+/models/pickle/
+.idea/
+models/__pycache__/

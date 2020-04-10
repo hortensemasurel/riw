@@ -1,9 +1,13 @@
-from os import path, listdir, getcwd, walk
+from os import path, listdir, getcwd, makedirs
 from pickle import load, dump
 from typing import List, Dict
 from math import log, sqrt
 from tqdm import tqdm
+<<<<<<<<< Temporary merge branch 1
 from nltk.corpus import stopwords
+=========
+
+>>>>>>>>> Temporary merge branch 2
 from nltk.stem import WordNetLemmatizer
 from pickle import load, dump
 
@@ -31,7 +35,6 @@ class Collection:
         """
         Aims at loading all the collection's documents (processed) in the collection instance.
         """
-
         pickle_path = path.join(f"pickle/{self.name}_docs.p")
         try:
             self.documents = load(open(pickle_path, "rb"))
@@ -54,9 +57,9 @@ class Collection:
                     )
                     self.documents.append(document)
                     number_document_loaded += 1
+            makedirs(path.dirname(pickle_path), exist_ok=True)
             dump(self.documents, open(pickle_path, "wb"))
             self.number_of_docs = number_document_loaded
-
 
     def create_inverted_index(self):
         """
@@ -77,6 +80,7 @@ class Collection:
                     else:
                         # the term was not found in another document, we create a key for this term
                         self.inverted_index[term] = {document.id: weight}
+            makedirs(path.dirname(pickle_path), exist_ok=True)
             dump(self.inverted_index, open(pickle_path, "wb"))
 
     def compute_term_frequency_in_collection(self, term, id_document):
