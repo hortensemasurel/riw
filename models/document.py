@@ -34,7 +34,7 @@ class Document:
 
     def filter_non_alpha_characters(self):
         """
-        Filter non alphanumeric character from the list of words in the document.
+        Filter non alphabetic character from the list of words in the document.
         """
         filtered_words = []
 

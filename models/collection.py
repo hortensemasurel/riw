@@ -31,6 +31,7 @@ class Collection:
         """
         Aims at loading all the collection's documents (processed) in the collection instance.
         """
+
         pickle_path = path.join(f"pickle/{self.name}_docs.p")
         try:
             self.documents = load(open(pickle_path, "rb"))
@@ -55,6 +56,7 @@ class Collection:
                     number_document_loaded += 1
             dump(self.documents, open(pickle_path, "wb"))
             self.number_of_docs = number_document_loaded
+
 
     def create_inverted_index(self):
         """
