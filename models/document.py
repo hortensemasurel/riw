@@ -89,21 +89,22 @@ class Document:
     def get_vocabulary(self):
         return list(set(self.words))
 
-
-if __name__ == "__main__":
-
-    #Change working directory to be at the root
-    ### voir comment on peut faire ca mieux
-    working_directory = getcwd()
-    print(working_directory[:-7])
-    chdir(working_directory[:-7])
-
-    #Create a Document instance
-    document = Document(id_doc=0, id_folder=0, address="3dradiology.stanford.edu_")
-
-    #Load content and process the documents
-    document.get_content("data/cs276")
-    lemmatizer_wordnet = WordNetLemmatizer()
-    stopwords_nltk = stopwords.words("english")
-    document.process_document(stopwords_nltk, lemmatizer_wordnet)
-    print(document.words)
+#
+# if __name__ == "__main__":
+#
+#     #Change working directory to be at the root
+#     ### voir comment on peut faire ca mieux
+#     working_directory = getcwd()
+#     print(working_directory[:-7])
+#     chdir(working_directory[:-7])
+#
+#     #Create a Document instance
+#     document = Document(id_doc=0, id_folder=0, address="3dradiology.stanford.edu_")
+#
+#     #Load content and process the documents
+#     document.get_content("data/cs276")
+#     lemmatizer_wordnet = WordNetLemmatizer()
+#     stopwords_nltk = stopwords.words("english")
+#     document.process_document(stopwords_nltk, lemmatizer_wordnet)
+#     print(document.words)
+#

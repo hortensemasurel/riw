@@ -1,14 +1,16 @@
 import time
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 from models.search_engine import SearchEngine
 
 
-def clt_interface():
+def clt_interface(weighting_model: str = "tf-idf"):
     print("Loading search engine :\n")
     word_net_lemmatizer = WordNetLemmatizer()
+    stopwords = stopwords.words("english")
     search_engine = SearchEngine(
         collection_name="cs276",
-        stopwords_list=[],
+        stopwords_list=stopwords,
         lemmatizer=word_net_lemmatizer,
         weighting_model=weighting_model,
     )
