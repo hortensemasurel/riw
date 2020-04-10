@@ -42,20 +42,20 @@ def compute_accuracy(search_engine):
         )
 
 
-def merge_and_postings_list(posting_term1, posting_term2):
+def merge_list(list1, list2):
     result = []
     index1 = 0
     index2 = 0
-    n1 = len(posting_term1)
-    n2 = len(posting_term2)
+    n1 = len(list1)
+    n2 = len(list2)
     while index1 < n1 and index2 < n2:
-        if posting_term1[index1] == posting_term2[index2]:
-            result.append(posting_term1[index1])
+        if list1[index1] == list2[index2]:
+            result.append(list1[index1])
             index1 += 1
             index2 += 1
-        elif posting_term1[index1] > posting_term2[index2]:
+        elif list1[index1] > list2[index2]:
             index2 += 1
-        elif posting_term1[index1] < posting_term2[index2]:
+        elif list1[index1] < list2[index2]:
             index1 += 1
     return result
 

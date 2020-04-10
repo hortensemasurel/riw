@@ -1,6 +1,19 @@
 import time
+from os import system
+
+from PyInquirer import style_from_dict, Token, prompt
 from nltk.stem import WordNetLemmatizer
+from pyfiglet import Figlet
+
 from models.search_engine import SearchEngine
+
+style = style_from_dict({
+    Token.QuestionMark: '#E91E63 bold',
+    Token.Selected: '#673AB7 bold',
+    Token.Instruction: '',  # default
+    Token.Answer: '#2196f3 bold',
+    Token.Question: '',
+})
 
 
 class Interface:
@@ -41,15 +54,38 @@ class Interface:
             print("{}.\t{}/{}".format(i, document.folder, document.address))
             print("\t{}\n".format(" ".join(document.key_words)))
 
-    def run(self):
-
+    def menu(self):
+        f = Figlet(font='slant')
+        system('clear')
+        print(f.renderText('Welcome to SE-3000'))
         while True:
+            questions = [{
+                    'type': 'list',
+                    'name': 'Choice',
+                    'message': 'Do you want to search a term or compute stats on Stanford queries ?',
+                    'choices': ['Search', 'Stats', 'Quit']
+            }]
+            answer = prompt(questions, style=style)
+            if answer['Choice'] == "Search":
+                question = [{
+                    'type': 'input',
+                    'name': 'query',
+                    'message': 'What\'s your query?'
+                }]
+                user_query = prompt(question, style=style)
+                self.search(user_query['query'])
+            elif answer['Choice'] == "Stats":
+                question = [{
+                    'type': 'input',
+                    'name': 'query',
+                    'message': 'What\'s your query?'
+                }]
 
-            print("Please enter your query : ")
-            user_query = input()
-            self.search(user_query)
+                answer = prompt(question, style=style)
+            elif answer['Choice'] == "Quit":
+                quit()
 
 
 if __name__ == "__main__":
     interface = Interface()
-    interface.run()
+    interface.menu()

@@ -1,7 +1,10 @@
-nltk
+nltk~=3.4.5
 certifi==2020.4.5.1
 chardet==3.0.4
 idna==2.9
 requests==2.23.0
-tqdm==4.45.0
+tqdm~=4.43.0
 urllib3==1.25.8
+
+pyfiglet~=0.8.post1
+PyInquirer~=1.0.3
