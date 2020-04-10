@@ -7,12 +7,12 @@ from models.search_engine import SearchEngine
 def clt_interface(weighting_model: str = "tf-idf"):
     print("Loading search engine :\n")
     word_net_lemmatizer = WordNetLemmatizer()
-    stopwords = stopwords.words("english")
+    stops = stopwords.words("english")
     search_engine = SearchEngine(
         collection_name="cs276",
-        stopwords_list=stopwords,
+        stopwords_list=stops,
         lemmatizer=word_net_lemmatizer,
-        weighting_model=weighting_model,
+        #weighting_model=weighting_model,
     )
     print("Done !\n")
 
@@ -39,7 +39,7 @@ def clt_interface(weighting_model: str = "tf-idf"):
 
         for i, doc_id in enumerate(sorted_docs[:10]):
             document = search_engine.collection.documents[doc_id]
-            print("{}.\t{}/{}".format(i, document.folder, document.url))
+            print("{}.\t{}/{}".format(i, document.folder, document.address))
             print("\t{}\n".format(" ".join(document.key_words)))
 
     while True:

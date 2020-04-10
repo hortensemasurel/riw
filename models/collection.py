@@ -3,11 +3,8 @@ from pickle import load, dump
 from typing import List, Dict
 from math import log, sqrt
 from tqdm import tqdm
-<<<<<<<<< Temporary merge branch 1
 from nltk.corpus import stopwords
-=========
 
->>>>>>>>> Temporary merge branch 2
 from nltk.stem import WordNetLemmatizer
 from pickle import load, dump
 
@@ -25,7 +22,7 @@ class Collection:
         self.inverted_index = {}
         self.stopwords = stopwords_list
         self.lemmatizer = lemmatizer
-        self.path_to_corpus = path.join(getcwd(), f"../data/{name}")
+        self.path_to_corpus = str(getcwd()) + f"/data/{name}/"
         self.number_of_docs = 0
 
         self.load_docs()
@@ -35,14 +32,15 @@ class Collection:
         """
         Aims at loading all the collection's documents (processed) in the collection instance.
         """
-        pickle_path = path.join(f"pickle/{self.name}_docs.p")
+        pickle_path = f"pickle/{self.name}_docs.p"
         try:
             self.documents = load(open(pickle_path, "rb"))
+            self.number_of_docs = len(self.documents)
         except FileNotFoundError:
             number_document_loaded = 0
             for id_directory in range(10):
                 print(f"Loading directory {id_directory}")
-                path_directory = path.join(self.path_to_corpus, str(id_directory))
+                path_directory = self.path_to_corpus + str(id_directory)
                 for text_file in listdir(path_directory):
                     # create a document instance
                     document = Document(
