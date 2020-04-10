@@ -1,11 +1,10 @@
-from os import path, listdir, getcwd, walk
+from os import path, listdir, getcwd, makedirs
 from pickle import load, dump
 from typing import List, Dict
 from math import log, sqrt
 from tqdm import tqdm
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from pickle import load, dump
 
 from models.document import Document
 
@@ -53,6 +52,7 @@ class Collection:
                     )
                     self.documents.append(document)
                     number_document_loaded += 1
+            makedirs(path.dirname(pickle_path), exist_ok=True)
             dump(self.documents, open(pickle_path, "wb"))
             self.number_of_docs = number_document_loaded
 
@@ -75,6 +75,7 @@ class Collection:
                     else:
                         # the term was not found in another document, we create a key for this term
                         self.inverted_index[term] = {document.id: weight}
+            makedirs(path.dirname(pickle_path), exist_ok=True)
             dump(self.inverted_index, open(pickle_path, "wb"))
 
     def compute_term_frequency_in_collection(self, term, id_document):
