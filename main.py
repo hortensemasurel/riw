@@ -47,7 +47,7 @@ class Interface:
 
             print("Please enter your query : ")
             user_query = input()
-            search(user_query)
+            self.search(user_query)
 
 
 if __name__ == "__main__":
