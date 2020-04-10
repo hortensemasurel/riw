@@ -19,7 +19,6 @@ class SearchEngine:
         self.lemmatizer = lemmatizer
 
     def search(self, string_query: str):
-        print("in search")
         """ Returns the score of each document, regarding the query """
         query = Query(string_query.lower(), self.stopwords, self.lemmatizer)
         documents_list = self.get_list_of_documents(query)
