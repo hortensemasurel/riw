@@ -1,15 +1,11 @@
-from time import time
-from os.path import isfile
 from nltk.stem import WordNetLemmatizer
 
 from models.search_engine import SearchEngine
 
 
-def compute_accuracy(search_engine):
-
-    for i in range(1, 9):
+def compute_accuracy(search_engine, query):
+    for i in query:
         dev_output = []
-
         with (open(f"queries/dev_queries/query.{i}", "r")) as file:
             query = next(file).rstrip("\n")
         query_output = search_engine.search(query)
@@ -63,9 +59,9 @@ def merge_list(list1, list2):
 if __name__ == "__main__":
     word_net_lemmatizer = WordNetLemmatizer()
     print("Loading search engine :\n")
-    search_engine = SearchEngine(
+    engine = SearchEngine(
         collection_name="cs276",
         stopwords_list=[],
         lemmatizer=word_net_lemmatizer,
     )
-    compute_accuracy(search_engine)
+    compute_accuracy(engine)

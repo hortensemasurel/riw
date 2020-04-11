@@ -6,6 +6,7 @@ from nltk.stem import WordNetLemmatizer
 from pyfiglet import Figlet
 
 from models.search_engine import SearchEngine
+from stats import compute_accuracy
 
 style = style_from_dict({
     Token.QuestionMark: '#E91E63 bold',
@@ -61,30 +62,80 @@ class Interface:
         print(f.renderText('Welcome to SE-3000'))
         while True:
             questions = [{
-                    'type': 'list',
-                    'name': 'Choice',
-                    'message': 'Do you want to search a term or compute stats on Stanford queries ?',
-                    'choices': ['Search', 'Stats', 'Quit']
-            }]
-            answer = prompt(questions, style=style)
-            if answer['Choice'] == "Search":
-                question = [{
+                'type': 'list',
+                'name': 'Choice',
+                'message': 'Do you want to search a term or evaluate engine on Stanford queries ?',
+                'choices': ['Search', 'Stats', 'Quit']
+            },
+                {
                     'type': 'input',
                     'name': 'query',
-                    'message': 'What\'s your query?'
-                }]
-                user_query = prompt(question, style=style)
-                self.search(user_query['query'])
-            elif answer['Choice'] == "Stats":
-                question = [{
-                    'type': 'input',
-                    'name': 'query',
-                    'message': 'What\'s your query?'
+                    'message': 'What\'s your query?',
+                    'when': lambda answers: answers['Choice'] == 'Search'
+                },
+                {
+                    'type': 'checkbox',
+                    'name': 'stat',
+                    'message': 'On which Stanford query should I compute statistics?',
+                    'choices': [
+                        {
+                            'name': '1'
+                        },
+                        {
+                            'name': '2'
+                        },
+                        {
+                            'name': '3'
+                        },
+                        {
+                            'name': '4',
+                        },
+                        {
+                            'name': '5'
+                        },
+                        {
+                            'name': '6'
+                        },
+                        {
+                            'name': '7'
+                        },
+                        {
+                            'name': '8'
+                        },
+                        {
+                            'name': 'Queries 1 to 8 concatenated'
+                        }
+                    ],
+                    'validate': lambda answers: 'You must choose at least one choice.' if len(
+                        answers['stat']) == 0 else True,
+                    'when': lambda answers: answers['Choice'] == 'Stats'
+                },
+                {
+                    'type': 'confirm',
+                    'name': 'quit',
+                    'message': 'Do you really want to quit the program ?',
+                    'when': lambda answers: answers['Choice'] == 'Quit'
                 }]
 
-                answer = prompt(question, style=style)
-            elif answer['Choice'] == "Quit":
-                quit()
+            output = prompt(questions, style=style)
+            if output['Choice'] == 'Quit':
+                if output['quit']:
+                    quit()
+            elif output['Choice'] == 'Search':
+                self.search(output['query'])
+            elif output['Choice'] == 'Stats':
+                if len(output['stat']) == 0:
+                    pass
+                elif output['stat'][0] == 'Queries 1 to 8 concatenated':
+                    query_all = []
+                    for i in range(1, 9):
+                        with (open(f"queries/dev_queries/query.{i}", "r")) as file:
+                            query = next(file).rstrip("\n")
+                        query_all.append(query)
+                    q = ' '.join(query_all)
+                    self.search(q)
+                else:
+                    compute_accuracy(self.search_engine, output['stat'])
 
 
 if __name__ == "__main__":

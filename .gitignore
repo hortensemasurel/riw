@@ -5,3 +5,4 @@ notebook_data/file_index.txt
 .idea/
 models/__pycache__/
 /pickle
+__pycache__/
