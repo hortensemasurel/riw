@@ -20,7 +20,7 @@ class SearchEngine:
         """ Returns a score of each document, regarding the query """
         query = Query(string_query.lower(), self.stopwords, self.lemmatizer)
         documents_list = self.get_list_of_documents(query)
-        doc_scores = self.get_scores(documents_list, query)
+        doc_scores = self.compute_scores(documents_list, query)
         return doc_scores
 
     def get_list_of_documents(self, query: Query):
