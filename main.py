@@ -30,15 +30,16 @@ class Interface:
 
     def search(self, query):
         """
-        This function is the main interface for querying the search engine.
+        This method enables to query the search engine.
         """
         start_time = time.time()
         print("Searching\n")
         doc_scores_query = self.search_engine.search(query)
         print("Sorting\n")
+        #sort documents with descending scores, the most relevant documents come first.
         sorted_docs = [
-            k
-            for k, v in sorted(
+            key
+            for key, value in sorted(
                 doc_scores_query.items(), key=lambda item: item[1], reverse=True
             )
         ]

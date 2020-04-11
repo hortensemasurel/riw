@@ -44,7 +44,7 @@ class Document:
 
     def remove_stopwords(self,stopwords_list):
         """
-        Remove stopwords for the document's list of words.
+        Remove stopwords from the document's list of words.
         :param stopwords_list: list of stopwords in a certain language
         """
         words_without_stopwords = []
@@ -78,7 +78,6 @@ class Document:
         """
         Processing the document thanks to the methods defined above
         :param stopwords_list: list of stopwords in a certain language
-        :return:
         """
         self.filter_non_alpha_characters()
         self.remove_stopwords(stopwords_list)

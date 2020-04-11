@@ -32,7 +32,7 @@ def compute_accuracy(search_engine):
 
         dev_output = sorted(dev_output)
         se_output = sorted(se_output)
-        final_list = merge_and_postings_list(dev_output, se_output)
+        final_list = merge_list(dev_output, se_output)
         score = len(final_list) / len(dev_output)
 
         print(
